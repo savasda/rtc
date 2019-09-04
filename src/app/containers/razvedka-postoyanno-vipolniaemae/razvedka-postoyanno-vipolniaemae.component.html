@@ -1,0 +1,30 @@
+<nz-table #basicTable [nzData]="form">
+        <thead>
+          <tr>
+            <th>№ п/п</th>
+            <th>Исходны данные,<br>определяемые показатели</th>
+            <th>Показатели</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data; let i = index">
+            <td>{{i + 1}}</td>
+            
+            <td>{{ data.name }}  
+                <input style="width: 160px" nz-input placeholder="Наименование пункта" /> 
+            </td>
+
+            <td>
+                <input style="width: 100%" 
+                nz-input placeholder="Введите площадь" 
+                [(ngModel)]="data.value" />
+            </td>
+            <td>
+                <button (click)="addPu(data.id)" *ngIf="data.hasOwnProperty('punktName') && data?.punktName?.length > 0  && data?.value?.length > 0" nz-button><i nz-icon nzType="plus-square" nzTheme="outline"></i>Добавить ПУ</button>
+                <button (click)="removePu(data.id)" *ngIf="data.hasOwnProperty('punktName') && data?.punktName?.length > 0  && data?.value?.length > 0" nz-button><i nz-icon nzType="plus-square" nzTheme="outline"></i>Удалить ПУ</button>
+            </td>
+     
+          </tr>
+        </tbody>
+      </nz-table>
