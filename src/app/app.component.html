@@ -7,7 +7,7 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <a routerLink="/">
-        <img src="../assets/logo.gif" alt="logo">
+        <img src="./assets/logo.gif" alt="logo">
         <h1>РТС - РХБЗ</h1>
       </a>
     </div>
@@ -40,7 +40,7 @@
       </div>
     </nz-header>
     <nz-content>
-      <div class="inner-content">
+      <div #content class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>

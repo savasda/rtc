@@ -1,30 +1,139 @@
-<nz-table #basicTable [nzData]="form">
-        <thead>
-          <tr>
-            <th>№ п/п</th>
-            <th>Исходны данные,<br>определяемые показатели</th>
-            <th>Показатели</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of basicTable.data; let i = index">
-            <td>{{i + 1}}</td>
-            
-            <td>{{ data.name }}  
-                <input style="width: 160px" nz-input placeholder="Наименование пункта" /> 
-            </td>
+ <nz-table [nzData]="[{}, {}]" [nzFrontPagination]="false"
+ [nzShowPagination]="false" [formGroup]="form">
+  <thead>
+    <tr>
+      <th>Исходны данные,<br>определяемые показатели</th>
+      <th>Показатели</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
 
-            <td>
-                <input style="width: 100%" 
-                nz-input placeholder="Введите площадь" 
-                [(ngModel)]="data.value" />
-            </td>
-            <td>
-                <button (click)="addPu(data.id)" *ngIf="data.hasOwnProperty('punktName') && data?.punktName?.length > 0  && data?.value?.length > 0" nz-button><i nz-icon nzType="plus-square" nzTheme="outline"></i>Добавить ПУ</button>
-                <button (click)="removePu(data.id)" *ngIf="data.hasOwnProperty('punktName') && data?.punktName?.length > 0  && data?.value?.length > 0" nz-button><i nz-icon nzType="plus-square" nzTheme="outline"></i>Удалить ПУ</button>
-            </td>
-     
-          </tr>
-        </tbody>
-      </nz-table>
+    <tr *ngFor="let control of pu.controls; let i = index">
+      <ng-container [formGroup]="control">
+        <td>
+          <nz-form-item>
+            <div class="input-descr">
+            <span>{{control.get('name').value}} <strong> №{{i + 1}}</strong></span>
+            <div><input formControlName="puName" nz-input type="text" placeholder="Название ПУ"></div>
+          </div>
+          </nz-form-item>
+        </td>
+
+        <td>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Используйте только цифры">
+              <input maxlength="8" style="width: 110px" (ngModelChange)="sumValues()" formControlName="value" nz-input
+                type="text" id="value" placeholder="площадь ПУ">
+              <span> km²</span>
+            </nz-form-control>
+          </nz-form-item>
+        </td>
+        <td>
+          <nz-form-item>
+            <div class="remote-block">
+                <button *ngIf="i+1 === form.get('pu').value.length" 
+                    (click)="addPu()" nzType="primary" nz-button>
+                    <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                </button>
+                <button *ngIf="form.get('pu').value.length > 1" nzType="danger" 
+                  (click)="deletePu(control.get('id').value)"
+                  nz-button><i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                </button>
+            </div>
+          </nz-form-item>
+        </td>
+      </ng-container>
+    </tr>
+
+    <tr>
+      <td>{{form.get('puSum').value.name}}: </td>
+
+      <td><strong>{{form.get('puSum').value.value}}</strong> шт.</td>
+
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>Общая площадь районов расположения ПУ</td>
+      <td><strong>{{form.get('puSum').value.tottal}}</strong><span> km²</span></td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>Время выполнения задачи</td>
+      <td>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Используйте только цифры">
+            <input maxlength="8" style="width: 110px" (ngModelChange)="onSetTime($event)"
+              formControlName="timeTocomplite" nz-input type="text" placeholder="Время на выполнение">
+            <span> ч.</span>
+          </nz-form-control>
+        </nz-form-item>
+      </td>
+      <td></td>
+    </tr>
+
+
+    <!--РХБ опасные объекты-->
+    <tr *ngFor="let control of objects.controls; let i = index">
+      <ng-container [formGroup]="control">
+        <td>
+          <nz-form-item>
+            <div class="input-descr">
+              <span>Площадь района расположения <br>РХБ опасного объекта <strong> №{{i + 1}}</strong></span>
+              <div>              
+                <input formControlName="objectName" nz-input placeholder="Название объекта">
+              </div>
+            </div>
+          </nz-form-item>
+        </td>
+
+        <td>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Используйте только цифры">
+              <input maxlength="8" style="width: 110px"
+              (ngModelChange)="sumObjectsValues()" 
+              formControlName="value" nz-input type="text" id="value"
+                placeholder="площадь ПУ">
+              <span> km²</span>
+            </nz-form-control>
+          </nz-form-item>
+        </td>
+        <td>
+          <nz-form-item>
+            <div class="remote-block">
+                <button *ngIf="i+1 === form.get('objects').value.length" 
+                    (click)="addObject()" nzType="primary" nz-button>
+                    <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                </button>
+                <button *ngIf="form.get('objects').value.length > 1" nzType="danger" 
+                  (click)="deleteObject(control.get('id').value)"
+                  nz-button><i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                </button>
+            </div>
+          </nz-form-item>
+        </td>
+      </ng-container>
+    </tr>
+
+
+    <tr>
+        <td>Всего РХБ опасных объектов: </td>
+  
+        <td><strong>{{form.get('objectsSum').value.value}}</strong> шт.</td>
+  
+        <td></td>
+      </tr>
+  
+      <tr>
+        <td>Общая площадь районов расположения РХБ опасных объектов</td>
+        <td><strong>{{form.get('objectsSum').value.tottal}}</strong><span> km²</span></td>
+        <td></td>
+      </tr>
+
+
+  </tbody>
+</nz-table>
+
+<button (click)="getform()">Сохранить</button>

@@ -30,10 +30,12 @@
               }
             ],
             "styles": [
+              "src/assets/js/treant-js/treant-js-master/Treant.css",
               "src/theme.less",
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "dev": {

@@ -9,6 +9,7 @@ export class FormFieldModel {
     value: string | number;
     children: Array<FormFieldModel>;
     type: FieldFormsTypes;
+    hasControls: boolean;
 
     addChild(model: FormFieldModel) {
         this.children.push(model)
@@ -28,6 +29,10 @@ export class FormFieldModel {
         this.id = this.randomInteger(1, 9999999999999999);
         this.type = type;
         this.name = name;
+    }
+
+    itemHasControls() {
+        this.hasControls = true;
     }
 
     private randomInteger(min, max) {

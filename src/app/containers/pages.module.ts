@@ -12,7 +12,6 @@ import { RazvedkaPostoyannoVipolniaemaeComponent } from './razvedka-postoyanno-v
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [WelcomeComponent, RazvedkaComponent, SoComponent, AmComponent, FireComponent, BlockComponent, RazvedkaPostoyannoVipolniaemaeComponent],
   imports: [

@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'am', component: AmComponent},
   { path: 'rz', component: RazvedkaComponent},
   /**Разведка постоянно выполняемые задачи */
-  { path: 'rz/postoyanno', component: RazvedkaPostoyannoVipolniaemaeComponent},
+  { path: 'postoyanno', component: RazvedkaPostoyannoVipolniaemaeComponent},
   { path: '**', component: WelcomeComponent}
 ];
 
