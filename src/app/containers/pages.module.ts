@@ -10,10 +10,19 @@ import { BlockComponent } from '../components/block/block.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RazvedkaPostoyannoVipolniaemaeComponent } from './razvedka-postoyanno-vipolniaemae/razvedka-postoyanno-vipolniaemae.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RazvedkaPereodicheskiVipolniaemae } from './razvedka-pereodicheski-vipolniaemae/razvedka-pereodicheski-vipolniaemae';
 
-
+const components = [
+  WelcomeComponent, 
+  RazvedkaComponent, 
+  SoComponent, 
+  AmComponent, 
+  FireComponent, 
+  BlockComponent, 
+  RazvedkaPereodicheskiVipolniaemae,
+  RazvedkaPostoyannoVipolniaemaeComponent]
 @NgModule({
-  declarations: [WelcomeComponent, RazvedkaComponent, SoComponent, AmComponent, FireComponent, BlockComponent, RazvedkaPostoyannoVipolniaemaeComponent],
+  declarations: [...components],
   imports: [
     CommonModule,
     RouterModule,
@@ -21,6 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [BlockComponent, WelcomeComponent, RazvedkaComponent, SoComponent, AmComponent, FireComponent, RazvedkaPostoyannoVipolniaemaeComponent]
+  exports: [...components]
 })
 export class PagesModule { }

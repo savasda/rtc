@@ -1,0 +1,146 @@
+<nz-table [nzData]="[{}, {}]" [nzFrontPagination]="false" [nzShowPagination]="false" [formGroup]="form">
+	<thead>
+		<tr>
+			<th>Исходны данные,<br>определяемые показатели</th>
+			<th>Показатели</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr *ngFor="let control of pu.controls; let i = index">
+			<ng-container [formGroup]="control">
+				<td>
+					<nz-form-item>
+						<div class="input-descr">
+							<span>{{control.get('name').value}} <strong> №{{i + 1}}</strong></span>
+							<div><input formControlName="puName" nz-input type="text" placeholder="Наименование"></div>
+						</div>
+					</nz-form-item>
+				</td>
+
+				<td>
+					<nz-form-item>
+						<nz-form-control nzErrorTip="Используйте только цифры">
+							<input maxlength="8" style="width: 110px" (ngModelChange)="sumValues()" formControlName="value" nz-input
+								type="text" id="value" placeholder="площадь">
+							<span> km²</span>
+						</nz-form-control>
+					</nz-form-item>
+				</td>
+				<td>
+					<nz-form-item>
+						<div class="remote-block">
+							<button *ngIf="i+1 === form.get('pu').value.length" (click)="addPu()" nzType="primary" nz-button>
+								<i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+							</button>
+							<button *ngIf="form.get('pu').value.length > 1" nzType="danger"
+								(click)="deletePu(control.get('id').value)" nz-button><i nz-icon nzType="minus-circle"
+									nzTheme="outline"></i>
+							</button>
+						</div>
+					</nz-form-item>
+				</td>
+			</ng-container>
+		</tr>
+
+		<tr>
+			<td>{{form.get('puSum').value.name}}: </td>
+
+			<td><strong>{{form.get('puSum').value.value}}</strong> шт.</td>
+
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>Общая площадь районов</td>
+			<td><strong>{{form.get('puSum').value.tottal}}</strong><span> km²</span></td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>Время выполнения задачи</td>
+			<td>
+				<nz-form-item>
+					<nz-form-control nzErrorTip="Используйте только цифры">
+						<input maxlength="8" style="width: 130px" (ngModelChange)="onSetTime($event)"
+							formControlName="timeTocomplite" nz-input type="text" placeholder="Время на выполнение">
+						<span> суток</span>
+					</nz-form-control>
+				</nz-form-item>
+			</td>
+			<td></td>
+		</tr>
+
+
+		<!--РХБ опасные объекты-->
+		<tr *ngFor="let control of objects.controls; let i = index">
+			<ng-container [formGroup]="control">
+				<td>
+					<nz-form-item>
+						<div class="input-descr">
+							<span>Протяженность маршрута<strong> №{{i + 1}}</strong></span>
+							<div>
+								<input formControlName="objectName" nz-input placeholder="Название маршрута">
+							</div>
+						</div>
+					</nz-form-item>
+				</td>
+
+				<td>
+					<nz-form-item>
+						<nz-form-control nzErrorTip="Используйте только цифры">
+							<input maxlength="8" style="width: 130px" (ngModelChange)="sumObjectsValues()" formControlName="value"
+								nz-input type="text" id="value" placeholder="Протяженность">
+							<span> km</span>
+						</nz-form-control>
+					</nz-form-item>
+				</td>
+				<td>
+					<nz-form-item>
+						<div class="remote-block">
+							<button *ngIf="i+1 === form.get('objects').value.length" (click)="addObject()" nzType="primary" nz-button>
+								<i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+							</button>
+							<button *ngIf="form.get('objects').value.length > 1" nzType="danger"
+								(click)="deleteObject(control.get('id').value)" nz-button><i nz-icon nzType="minus-circle"
+									nzTheme="outline"></i>
+							</button>
+						</div>
+					</nz-form-item>
+				</td>
+			</ng-container>
+		</tr>
+
+
+		<tr>
+			<td>Количество маршрутов: </td>
+
+			<td><strong>{{form.get('objectsSum').value.value}}</strong></td>
+
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>Общая протяженность маршрутов</td>
+			<td><strong>{{form.get('objectsSum').value.tottal}}</strong><span> km</span></td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>Время выполнения задачи</td>
+			<td>
+				<nz-form-item>
+					<nz-form-control nzErrorTip="Используйте только цифры">
+						<input maxlength="8" style="width: 130px" (ngModelChange)="onSetTimeRoutes($event)"
+							formControlName="timeTocompliteRouts" nz-input type="text" placeholder="Время на выполнение">
+						<span> суток</span>
+					</nz-form-control>
+				</nz-form-item>
+			</td>
+			<td></td>
+		</tr>
+
+
+	</tbody>
+</nz-table>

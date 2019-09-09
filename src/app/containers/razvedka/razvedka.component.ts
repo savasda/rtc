@@ -9,6 +9,8 @@ declare var Treant: any;
 })
 export class RazvedkaComponent implements OnInit, AfterViewInit {
   private REGULARY_EVENTS_CKASS = 'regulary_events-node';
+  private TEMPRERARY_EVENTS_CLASS = 'temprerary_events-node';
+
   config = {
     container: "#tree-simple",
     nodeAlign: "BOTTOM",
@@ -38,7 +40,8 @@ export class RazvedkaComponent implements OnInit, AfterViewInit {
 
   second_child_child_2 = {
     parent: this.first_child,
-    text: { name: "Переодически выполняемые задачи" }
+    text: { name: "Переодически выполняемые задачи" },
+    HTMLclass: this.TEMPRERARY_EVENTS_CLASS
   };
 
   simple_chart_config = [
@@ -58,8 +61,12 @@ export class RazvedkaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     
     const regularyEvents = document.querySelector(`.${this.REGULARY_EVENTS_CKASS}`);
+    const tempreraryEvents = document.querySelector(`.${this.TEMPRERARY_EVENTS_CLASS}`);
     regularyEvents.addEventListener('click', () => {
       this._router.navigate(['/postoyanno'])
+    });
+    tempreraryEvents.addEventListener('click', () => {
+      this._router.navigate(['/temp'])
     });
 
   }
